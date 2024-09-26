@@ -20,7 +20,7 @@ public class TaskController {
         this.taskService = taskService;
     }
 
-    // Obtener todas las tareas del back
+    // Preba 
     @GetMapping
     public ResponseEntity<List<Task>> getAllTasks() {
         List<Task> tasks = taskService.getTasksByCompletionStatus(false);
