@@ -20,7 +20,6 @@ public class TaskController {
         this.taskService = taskService;
     }
 
-    // Preba 
     @GetMapping
     public ResponseEntity<List<Task>> getAllTasks() {
         List<Task> tasks = taskService.getTasksByCompletionStatus(false);
