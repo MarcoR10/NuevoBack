@@ -20,7 +20,11 @@ public class TaskService {
     }
 
     public Task getTaskByDescription(String description) {
-        return taskRepository.findTaskByDescription(description);
+        Task task = taskRepository.findTaskByDescription(description);
+        if (task == null) {
+            throw new RuntimeException("Task not found");
+        }
+        return task;
     }
 
     public List<Task> getTasksByCompletionStatus(boolean completed) {
