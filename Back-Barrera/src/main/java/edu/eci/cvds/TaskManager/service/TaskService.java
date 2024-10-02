@@ -14,11 +14,9 @@ public class TaskService {
     public TaskService(TaskRepository taskRepository) {
         this.taskRepository = taskRepository;
     }
-
     public Task getTaskByDescription(String description) {
         return taskRepository.findTaskByDescription(description);
     }
-
     public List<Task> getTasksByCompletionStatus(boolean completed) {
         return taskRepository.findAllByCompletionStatus(completed);
     }
