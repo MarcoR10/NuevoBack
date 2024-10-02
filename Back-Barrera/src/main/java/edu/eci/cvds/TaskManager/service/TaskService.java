@@ -2,10 +2,12 @@ package edu.eci.cvds.TaskManager.service;
 
 import edu.eci.cvds.TaskManager.model.Task;
 import edu.eci.cvds.TaskManager.repository.TaskRepository;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class TaskService {
@@ -36,13 +38,25 @@ public class TaskService {
         return taskRepository.save(task);
     }
 
-    public void deleteTask(String id) {
-        taskRepository.deleteById(id);
+    public boolean deleteTask(String id) {
+        if (taskRepository.existsById(id)) {
+            taskRepository.deleteById(id);
+            return true;
+        } 
+        return false;
     }
 
     public Task completeTask(String id) {
         Task task = taskRepository.findById(id).orElseThrow(() -> new RuntimeException("Task not found"));
         task.setCompleted(true);
         return taskRepository.save(task);
+    }
+
+    public Task queryTaskById(String id) {
+        return taskRepository.findById(id).orElseThrow(null);
+    }
+
+    public Optional<Task> queryAllTasks() {
+        return Optional.empty();
     }
 }
