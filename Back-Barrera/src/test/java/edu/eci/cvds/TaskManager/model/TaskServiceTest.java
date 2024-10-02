@@ -5,6 +5,7 @@ import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.mockito.Mockito.*;
 
+import java.util.List;
 import java.util.Optional;
 
 import org.junit.jupiter.api.BeforeEach;
@@ -54,10 +55,16 @@ public class TaskServiceTest {
 
     @Test
     public void testDeleteTask() {
-        Task task = new Task("Task to Delete");
-        task = taskService.addTask(task.getDescription());
-        boolean isDeleted = taskService.deleteTask(task.getId());
-        assertTrue(isDeleted);
+        Task task = new Task();
+        task.setId("1"); // Asegúrate de establecer un ID
+        task.setDescription("Task to Delete");
+
+        // Mockea la interacción con el repositorio
+        when(taskRepository.findById("1")).thenReturn(Optional.of(task));
+        doNothing().when(taskRepository).deleteById(task.getId()); // Simula la eliminación
+
+        boolean isDeleted = taskService.deleteTask(task.getId()); // Luego intenta eliminarla
+        assertTrue(isDeleted); // Asegúrate de que se elimine correctamente
     }
 
     @Test
@@ -70,20 +77,19 @@ public class TaskServiceTest {
 
     @Test
     public void testGetTask_NoTasks() {
-        // Verifica que no haya tareas
-        assertTrue(taskService.getTasksByCompletionStatus(false).isEmpty()); // O el método que verifique si hay tareas
+        List<Task> tasks = taskService.getTasksByCompletionStatus(false);
+        assertTrue(tasks.isEmpty());
     }
 
     @Test
     public void testGetTask_Success() {
-        // Agregar la tarea primero
         Task task = new Task("Test Task");
-        task = taskService.addTask(task.getDescription()); // Esto debería devolver la tarea agregada
+        task.setId("1"); // Asigna un ID a la tarea
 
-        // Luego intenta obtener la tarea
+        when(taskRepository.findTaskByDescription("Test Task")).thenReturn(task); // Mockea el repositorio
+
         Task queriedTask = taskService.getTaskByDescription("Test Task");
-        assertNotNull(queriedTask); // Debe ser diferente de null
-        assertEquals(task.getId(), queriedTask.getId()); // Compara el ID para asegurarte de que sea la misma tarea
+        assertNotNull(queriedTask);
+        assertEquals(task.getId(), queriedTask.getId());
     }
-
 }

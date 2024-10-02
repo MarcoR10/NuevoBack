@@ -60,7 +60,7 @@ public class TaskService {
         return taskRepository.findById(id).orElseThrow(null);
     }
 
-    public Optional<Task> queryAllTasks() {
-        return Optional.empty();
-    }
+    public List<Task> queryAllTasks() {
+        return taskRepository.findAll(); // O lo que devuelva tu repositorio
+    }    
 }
