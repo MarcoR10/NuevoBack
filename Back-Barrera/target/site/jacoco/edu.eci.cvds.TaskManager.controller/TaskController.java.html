@@ -20,56 +20,49 @@ public class TaskController {
 <span class="fc" id="L20">        this.taskService = taskService;</span>
 <span class="fc" id="L21">    }</span>
 
-    // Obtener todas las tareas del back 
     @GetMapping
     public ResponseEntity&lt;List&lt;Task&gt;&gt; getAllTasks() {
-<span class="nc" id="L26">        List&lt;Task&gt; tasks = taskService.getTasksByCompletionStatus(false);</span>
-<span class="nc" id="L27">        return ResponseEntity.ok(tasks);</span>
+<span class="nc" id="L25">        List&lt;Task&gt; tasks = taskService.getTasksByCompletionStatus(false);</span>
+<span class="nc" id="L26">        return ResponseEntity.ok(tasks);</span>
     }
 
-    // Obtener tareas por estado de completado (true o false)
     @GetMapping(&quot;/completed/{status}&quot;)
     public ResponseEntity&lt;List&lt;Task&gt;&gt; getTasksByCompletionStatus(@PathVariable boolean status) {
-<span class="nc" id="L33">        List&lt;Task&gt; tasks = taskService.getTasksByCompletionStatus(status);</span>
-<span class="nc" id="L34">        return ResponseEntity.ok(tasks);</span>
+<span class="nc" id="L31">        List&lt;Task&gt; tasks = taskService.getTasksByCompletionStatus(status);</span>
+<span class="nc" id="L32">        return ResponseEntity.ok(tasks);</span>
     }
 
-    // Contar cuántas tareas están completadas
     @GetMapping(&quot;/completed/count&quot;)
     public ResponseEntity&lt;Long&gt; countCompletedTasks() {
-<span class="nc" id="L40">        long count = taskService.countCompletedTasks();</span>
-<span class="nc" id="L41">        return ResponseEntity.ok(count);</span>
+<span class="nc" id="L37">        long count = taskService.countCompletedTasks();</span>
+<span class="nc" id="L38">        return ResponseEntity.ok(count);</span>
     }
 
-    // Añadir una nueva tarea
     @PostMapping
     public ResponseEntity&lt;Task&gt; addTask(@RequestBody String description) {
-<span class="nc" id="L47">        Task task = taskService.addTask(description);</span>
-<span class="nc" id="L48">        return ResponseEntity.ok(task);</span>
+<span class="nc" id="L43">        Task task = taskService.addTask(description);</span>
+<span class="nc" id="L44">        return ResponseEntity.ok(task);</span>
     }
 
-    // Eliminar una tarea por su ID
     @DeleteMapping(&quot;/{id}&quot;)
     public ResponseEntity&lt;Void&gt; deleteTask(@PathVariable String id) {
-<span class="nc" id="L54">        taskService.deleteTask(id);</span>
-<span class="nc" id="L55">        return ResponseEntity.noContent().build();</span>
+<span class="nc" id="L49">        taskService.deleteTask(id);</span>
+<span class="nc" id="L50">        return ResponseEntity.noContent().build();</span>
     }
 
-    // Completar una tarea
     @PutMapping(&quot;/complete/{id}&quot;)
     public ResponseEntity&lt;Task&gt; completeTask(@PathVariable String id) {
-<span class="nc" id="L61">        Task task = taskService.completeTask(id);</span>
-<span class="nc" id="L62">        return ResponseEntity.ok(task);</span>
+<span class="nc" id="L55">        Task task = taskService.completeTask(id);</span>
+<span class="nc" id="L56">        return ResponseEntity.ok(task);</span>
     }
 
-    // Buscar una tarea por descripción
     @GetMapping(&quot;/description/{description}&quot;)
     public ResponseEntity&lt;Task&gt; getTaskByDescription(@PathVariable String description) {
-<span class="nc" id="L68">        Task task = taskService.getTaskByDescription(description);</span>
-<span class="nc bnc" id="L69" title="All 2 branches missed.">        if (task != null) {</span>
-<span class="nc" id="L70">            return ResponseEntity.ok(task);</span>
+<span class="nc" id="L61">        Task task = taskService.getTaskByDescription(description);</span>
+<span class="nc bnc" id="L62" title="All 2 branches missed.">        if (task != null) {</span>
+<span class="nc" id="L63">            return ResponseEntity.ok(task);</span>
         } else {
-<span class="nc" id="L72">            return ResponseEntity.notFound().build();</span>
+<span class="nc" id="L65">            return ResponseEntity.notFound().build();</span>
         }
     }
 }
