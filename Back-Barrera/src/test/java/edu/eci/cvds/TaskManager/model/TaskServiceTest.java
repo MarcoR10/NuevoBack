@@ -55,7 +55,7 @@ public class TaskServiceTest {
     @Test
     public void testDeleteTask() {
         Task task = new Task("Task to Delete");
-        taskService.addTask(task.getDescription());
+        task = taskService.addTask(task.getDescription());
         boolean isDeleted = taskService.deleteTask(task.getId());
         assertTrue(isDeleted);
     }
@@ -67,4 +67,23 @@ public class TaskServiceTest {
         taskService.deleteTask(task.getId());
         assertTrue(taskService.queryAllTasks().isEmpty());
     }
+
+    @Test
+    public void testGetTask_NoTasks() {
+        // Verifica que no haya tareas
+        assertTrue(taskService.getTasksByCompletionStatus(false).isEmpty()); // O el método que verifique si hay tareas
+    }
+
+    @Test
+    public void testGetTask_Success() {
+        // Agregar la tarea primero
+        Task task = new Task("Test Task");
+        task = taskService.addTask(task.getDescription()); // Esto debería devolver la tarea agregada
+
+        // Luego intenta obtener la tarea
+        Task queriedTask = taskService.getTaskByDescription("Test Task");
+        assertNotNull(queriedTask); // Debe ser diferente de null
+        assertEquals(task.getId(), queriedTask.getId()); // Compara el ID para asegurarte de que sea la misma tarea
+    }
+
 }
