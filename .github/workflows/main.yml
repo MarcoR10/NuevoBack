@@ -19,7 +19,9 @@ jobs:
           distribution: 'temurin'
 
       - name: Compile project
-        run: mvn compile  
+        run: |
+          cd Back-Barrera
+          mvn compile  
 
   test:
     runs-on: ubuntu-latest
@@ -31,10 +33,12 @@ jobs:
       - name: Set up JDK
         uses: actions/setup-java@v2
         with:
-          java-version: '21.0.2'  
+          java-version: '21.0.2'
 
       - name: Run tests
-        run: mvn verify  
+        run: |
+          cd Back-Barrera
+          mvn verify  
 
   deploy:
     runs-on: ubuntu-latest
