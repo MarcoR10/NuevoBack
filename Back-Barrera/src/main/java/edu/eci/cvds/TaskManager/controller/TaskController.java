@@ -20,49 +20,42 @@ public class TaskController {
         this.taskService = taskService;
     }
 
-    // Prueba
     @GetMapping
     public ResponseEntity<List<Task>> getAllTasks() {
         List<Task> tasks = taskService.getTasksByCompletionStatus(false);
         return ResponseEntity.ok(tasks);
     }
 
-    // Obtener tareas por estado de completado (true o false)
     @GetMapping("/completed/{status}")
     public ResponseEntity<List<Task>> getTasksByCompletionStatus(@PathVariable boolean status) {
         List<Task> tasks = taskService.getTasksByCompletionStatus(status);
         return ResponseEntity.ok(tasks);
     }
 
-    // Contar cuántas tareas están completadas
     @GetMapping("/completed/count")
     public ResponseEntity<Long> countCompletedTasks() {
         long count = taskService.countCompletedTasks();
         return ResponseEntity.ok(count);
     }
 
-    // Añadir una nueva tarea
     @PostMapping
     public ResponseEntity<Task> addTask(@RequestBody String description) {
         Task task = taskService.addTask(description);
         return ResponseEntity.ok(task);
     }
 
-    // Eliminar una tarea por su ID
     @DeleteMapping("/{id}")
     public ResponseEntity<Void> deleteTask(@PathVariable String id) {
         taskService.deleteTask(id);
         return ResponseEntity.noContent().build();
     }
 
-    // Completar una tarea
     @PutMapping("/complete/{id}")
     public ResponseEntity<Task> completeTask(@PathVariable String id) {
         Task task = taskService.completeTask(id);
         return ResponseEntity.ok(task);
     }
 
-    // Buscar una tarea por descripción
     @GetMapping("/description/{description}")
     public ResponseEntity<Task> getTaskByDescription(@PathVariable String description) {
         Task task = taskService.getTaskByDescription(description);
