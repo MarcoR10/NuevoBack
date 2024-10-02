@@ -20,10 +20,7 @@ public class TaskController {
         this.taskService = taskService;
     }
 
-<<<<<<< HEAD
-    // Preba
-=======
->>>>>>> ba7c7525ad90a28424f40c08f1c989f7ddac1833
+    // Prueba
     @GetMapping
     public ResponseEntity<List<Task>> getAllTasks() {
         List<Task> tasks = taskService.getTasksByCompletionStatus(false);
