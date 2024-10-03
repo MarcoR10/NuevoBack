@@ -58,7 +58,9 @@ jobs:
           java-version: '21.0.2'
 
       - name: Build jar
-        run: mvn package -TaskManager
+        run: run: |
+          cd Back-Barrera
+          mvn package
       
       - name: Azure Web App Deploy
         uses: azure/webapps-deploy@v2
