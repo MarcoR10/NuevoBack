@@ -47,9 +47,8 @@ public class TaskServiceTest {
 
     @Test
     public void testCreateTask() {
-        Task task = new Task("New Task"); // Debes proporcionar una descripción
-        taskService.addTask(task.getDescription()); // Pasa la descripción al método
-        // Realiza las aserciones necesarias
+        Task task = new Task("New Task");
+        taskService.addTask(task.getDescription()); 
     }
 
 
