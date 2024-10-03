@@ -1,5 +1,4 @@
 name: Primer WorkFlow
-
 on:
   push:
     branches:
