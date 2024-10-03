@@ -2,48 +2,70 @@
 
 import edu.eci.cvds.TaskManager.model.Task;
 import edu.eci.cvds.TaskManager.repository.TaskRepository;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class TaskService {
 
-    private final TaskRepository taskRepository;
-
     @Autowired
-<span class="fc" id="L16">    public TaskService(TaskRepository taskRepository) {</span>
-<span class="fc" id="L17">        this.taskRepository = taskRepository;</span>
-<span class="fc" id="L18">    }</span>
+    private TaskRepository taskRepository;
 
+    
+<span class="fc" id="L19">    public TaskService(TaskRepository taskRepository) {</span>
+<span class="fc" id="L20">        this.taskRepository = taskRepository;</span>
+<span class="fc" id="L21">    }</span>
+
+    public Optional&lt;Task&gt; geTaskByIdTask(String id){
+<span class="fc" id="L24">        return taskRepository.findTaskById(id);</span>
+
+    }
     public Task getTaskByDescription(String description) {
-<span class="nc" id="L21">        return taskRepository.findTaskByDescription(description);</span>
+<span class="nc" id="L28">        Task task = taskRepository.findTaskByDescription(description);</span>
+<span class="nc bnc" id="L29" title="All 2 branches missed.">        if (task == null) {</span>
+<span class="nc" id="L30">            throw new RuntimeException(&quot;Task not found&quot;);</span>
+        }
+<span class="nc" id="L32">        return task;</span>
     }
 
     public List&lt;Task&gt; getTasksByCompletionStatus(boolean completed) {
-<span class="nc" id="L25">        return taskRepository.findAllByCompletionStatus(completed);</span>
+<span class="nc" id="L36">        return taskRepository.findAllByCompletionStatus(completed);</span>
     }
 
     public long countCompletedTasks() {
-<span class="nc" id="L29">        return taskRepository.countCompletedTasks();</span>
+<span class="nc" id="L40">        return taskRepository.countCompletedTasks();</span>
     }
 
     public Task addTask(String description) {
-<span class="nc" id="L33">        Task task = new Task();</span>
-<span class="nc" id="L34">        task.setDescription(description);</span>
-<span class="nc" id="L35">        task.setCompleted(false);</span>
-<span class="nc" id="L36">        return taskRepository.save(task);</span>
+<span class="fc" id="L44">        Task task = new Task(description);</span>
+<span class="fc" id="L45">        taskRepository.save(task);</span>
+<span class="fc" id="L46">        return task;</span>
     }
 
-    public void deleteTask(String id) {
-<span class="nc" id="L40">        taskRepository.deleteById(id);</span>
-<span class="nc" id="L41">    }</span>
+    public boolean deleteTask(String taskId) {
+<span class="pc bpc" id="L50" title="1 of 2 branches missed.">        if (taskRepository.existsById(taskId)) {</span>
+<span class="fc" id="L51">            taskRepository.deleteById(taskId);</span>
+<span class="fc" id="L52">            return true;</span>
+        } 
+<span class="nc" id="L54">        return false;</span>
+    }
 
     public Task completeTask(String id) {
-<span class="nc" id="L44">        Task task = taskRepository.findById(id).orElseThrow(() -&gt; new RuntimeException(&quot;Task not found&quot;));</span>
-<span class="nc" id="L45">        task.setCompleted(true);</span>
-<span class="nc" id="L46">        return taskRepository.save(task);</span>
+<span class="nc" id="L58">        Task task = taskRepository.findById(id).orElseThrow(() -&gt; new RuntimeException(&quot;Task not found&quot;));</span>
+<span class="nc" id="L59">        task.setCompleted(true);</span>
+<span class="nc" id="L60">        return taskRepository.save(task);</span>
     }
+
+    public Task queryTaskById(String id) {
+<span class="fc" id="L64">        return taskRepository.findById(id).orElseThrow(null);</span>
+    }
+
+    public List&lt;Task&gt; queryAllTasks() {
+<span class="nc" id="L68">        return taskRepository.findAll(); // O lo que devuelva tu repositorio</span>
+    }    
 }
 </pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.12.202403310830</span></div></body></html>

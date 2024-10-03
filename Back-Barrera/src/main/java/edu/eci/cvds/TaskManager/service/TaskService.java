@@ -2,23 +2,34 @@ package edu.eci.cvds.TaskManager.service;
 
 import edu.eci.cvds.TaskManager.model.Task;
 import edu.eci.cvds.TaskManager.repository.TaskRepository;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class TaskService {
 
-    private final TaskRepository taskRepository;
-
     @Autowired
+    private TaskRepository taskRepository;
+
+    
     public TaskService(TaskRepository taskRepository) {
         this.taskRepository = taskRepository;
     }
 
+    public Optional<Task> geTaskByIdTask(String id){
+        return taskRepository.findTaskById(id);
+
+    }
     public Task getTaskByDescription(String description) {
-        return taskRepository.findTaskByDescription(description);
+        Task task = taskRepository.findTaskByDescription(description);
+        if (task == null) {
+            throw new RuntimeException("Task not found");
+        }
+        return task;
     }
 
     public List<Task> getTasksByCompletionStatus(boolean completed) {
@@ -30,14 +41,17 @@ public class TaskService {
     }
 
     public Task addTask(String description) {
-        Task task = new Task();
-        task.setDescription(description);
-        task.setCompleted(false);
-        return taskRepository.save(task);
+        Task task = new Task(description);
+        taskRepository.save(task);
+        return task;
     }
 
-    public void deleteTask(String id) {
-        taskRepository.deleteById(id);
+    public boolean deleteTask(String taskId) {
+        if (taskRepository.existsById(taskId)) {
+            taskRepository.deleteById(taskId);
+            return true;
+        } 
+        return false;
     }
 
     public Task completeTask(String id) {
@@ -45,4 +59,12 @@ public class TaskService {
         task.setCompleted(true);
         return taskRepository.save(task);
     }
+
+    public Task queryTaskById(String id) {
+        return taskRepository.findById(id).orElseThrow(null);
+    }
+
+    public List<Task> queryAllTasks() {
+        return taskRepository.findAll(); // O lo que devuelva tu repositorio
+    }    
 }
