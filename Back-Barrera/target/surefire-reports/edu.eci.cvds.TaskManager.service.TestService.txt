@@ -1,6 +1,7 @@
 -------------------------------------------------------------------------------
 Test set: edu.eci.cvds.TaskManager.service.TestService
 -------------------------------------------------------------------------------
+<<<<<<< HEAD
 Tests run: 2, Failures: 0, Errors: 2, Skipped: 0, Time elapsed: 0.921 s <<< FAILURE! -- in edu.eci.cvds.TaskManager.service.TestService
 edu.eci.cvds.TaskManager.service.TestService.testGetRegisteredTask_Success -- Time elapsed: 0.011 s <<< ERROR!
 org.mockito.exceptions.base.MockitoException: 
@@ -53,6 +54,22 @@ Examples of correct usage of @InjectMocks:
 	at java.base/java.util.stream.Streams$ConcatSpliterator.forEachRemaining(Streams.java:734)
 	at java.base/java.util.stream.ReferencePipeline$Head.forEach(ReferencePipeline.java:782)
 	at java.base/java.util.Optional.orElseGet(Optional.java:364)
+=======
+Tests run: 2, Failures: 0, Errors: 2, Skipped: 0, Time elapsed: 0.056 s <<< FAILURE! -- in edu.eci.cvds.TaskManager.service.TestService
+edu.eci.cvds.TaskManager.service.TestService.testGetTask_NoTasks -- Time elapsed: 0.020 s <<< ERROR!
+java.lang.RuntimeException: Task not found
+	at edu.eci.cvds.TaskManager.service.TaskService.getTaskByDescription(TaskService.java:25)
+	at edu.eci.cvds.TaskManager.service.TestService.testGetTask_NoTasks(TestService.java:43)
+	at java.base/java.lang.reflect.Method.invoke(Method.java:580)
+	at java.base/java.util.ArrayList.forEach(ArrayList.java:1597)
+	at java.base/java.util.ArrayList.forEach(ArrayList.java:1597)
+
+edu.eci.cvds.TaskManager.service.TestService.testGetTask_Success -- Time elapsed: 0.007 s <<< ERROR!
+java.lang.RuntimeException: Task not found
+	at edu.eci.cvds.TaskManager.service.TaskService.getTaskByDescription(TaskService.java:25)
+	at edu.eci.cvds.TaskManager.service.TestService.testGetTask_Success(TestService.java:34)
+	at java.base/java.lang.reflect.Method.invoke(Method.java:580)
+>>>>>>> ea559ce19afa9d4ea93fb84ee9fd84dde69909ac
 	at java.base/java.util.ArrayList.forEach(ArrayList.java:1597)
 	at java.base/java.util.ArrayList.forEach(ArrayList.java:1597)
 

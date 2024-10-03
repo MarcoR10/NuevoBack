@@ -23,7 +23,7 @@ public class Task {
         return id;
     }
 
-    public void setId(String id) {
+    public void setId (String id) {
         this.id = id;
 	}
 
@@ -46,6 +46,5 @@ public class Task {
     public Task orElseThrow(Object object) {
         throw new UnsupportedOperationException("Unimplemented method 'orElseThrow'");
     }
-
 
 }
