@@ -15,10 +15,10 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v3  # You can update to @v3 here if needed
 
-      - name: Set up JDK
+      - name: Set up JDK (with specific version)
         uses: actions/setup-java@v2
         with:
-          java-version: '21.0.2'
+          java-version: '11'  # Replace with the desired Java version for build
           distribution: 'temurin'
 
       - name: Compile project
@@ -36,7 +36,7 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v3  # You can update to @v3 here if needed
 
-      - name: Set up JDK
+      - name: Set up JDK (based on matrix)
         uses: actions/setup-java@v2
         with:
           java-version: ${{ matrix.java }}
@@ -54,11 +54,11 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v3  # You can update to @v3 here if needed
 
-      - name: Set up JDK
+      - name: Set up JDK (with specific version)
         uses: actions/setup-java@v2
         with:
+          java-version: '21.0.2'  # Replace with the desired Java version for deploy
           distribution: 'temurin'
-          java-version: '21.0.2'
 
       - name: Build jar
         run: |
