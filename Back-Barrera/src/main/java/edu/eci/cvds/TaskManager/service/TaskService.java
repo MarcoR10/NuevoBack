@@ -17,6 +17,10 @@ public class TaskService {
         this.taskRepository = taskRepository;
     }
 
+    public Task geTaskByIdTask(String id){
+        return taskRepository.findTaskById(id).orElseThrow(() -> new RuntimeException("Task not found"));
+
+    }
     public Task getTaskByDescription(String description) {
         return taskRepository.findTaskByDescription(description);
     }

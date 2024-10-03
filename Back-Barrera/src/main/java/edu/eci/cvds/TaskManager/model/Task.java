@@ -23,6 +23,10 @@ public class Task {
         return id;
     }
 
+    public void setId(String id) {
+        this.id = id;
+	}
+
     public String getDescription() {
         return description;
     }
@@ -38,4 +42,10 @@ public class Task {
     public void setDescription(String description) {
         this.description = description;
     }
+
+    public Task orElseThrow(Object object) {
+        throw new UnsupportedOperationException("Unimplemented method 'orElseThrow'");
+    }
+
+
 }
