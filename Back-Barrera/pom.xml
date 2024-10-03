@@ -113,6 +113,16 @@
 				<artifactId>sonar-maven-plugin</artifactId>
 				<version>4.0.0.4121</version>
 			</plugin>
+			<plugin>
+            	<groupId>com.microsoft.azure</groupId>
+            	<artifactId>azure-webapp-maven-plugin</artifactId>
+            	<version>x.xx.x</version>
+            	<configuration>
+                	<schemaVersion>v2</schemaVersion>
+                	<resourceGroup>CVDS-TaskManager_group</resourceGroup>
+                	<appName>CVDS-TaskManager</appName>
+            	</configuration>
+			</plugin>	
 		</plugins>
 	</build>
 </project>
