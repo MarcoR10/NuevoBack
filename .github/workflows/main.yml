@@ -15,14 +15,6 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v2
 
-      - name: List files in root
-        run: ls -la
-
-      - name: List files in Back-Barrera
-        run: |
-          cd Back-Barrera
-          ls -la
-
       - name: Set up JDK
         uses: actions/setup-java@v2
         with:
@@ -30,7 +22,9 @@ jobs:
           distribution: 'temurin'
 
       - name: Compile project
-        run: mvn compile  
+        run: |
+          cd Back-Barrera
+          mvn compile   
 
   test:
     runs-on: ubuntu-latest
@@ -45,7 +39,9 @@ jobs:
           java-version: '21.0.2'
 
       - name: Run tests
-        run: mvn verify
+        run: |
+          cd Back-Barrera
+          mvn verify
 
   deploy:
     runs-on: ubuntu-latest
@@ -61,7 +57,7 @@ jobs:
           java-version: '21.0.2'
 
       - name: Build jar
-        run: mvn package -DskipTests
+        run: mvn package -TaskManager
       
       - name: Azure Web App Deploy
         uses: azure/webapps-deploy@v2
