@@ -58,7 +58,7 @@ jobs:
           java-version: '21.0.2'
 
       - name: Build jar
-        run: run: |
+        run: |
           cd Back-Barrera
           mvn package
       
