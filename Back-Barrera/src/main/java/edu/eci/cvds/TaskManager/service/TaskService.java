@@ -12,9 +12,10 @@ import java.util.Optional;
 @Service
 public class TaskService {
 
-    private final TaskRepository taskRepository;
-
     @Autowired
+    private TaskRepository taskRepository;
+
+    
     public TaskService(TaskRepository taskRepository) {
         this.taskRepository = taskRepository;
     }
@@ -36,15 +37,14 @@ public class TaskService {
     }
 
     public Task addTask(String description) {
-        Task task = new Task();
-        task.setDescription(description);
-        task.setCompleted(false);
-        return taskRepository.save(task);
+        Task task = new Task(description);
+        taskRepository.save(task);
+        return task;
     }
 
-    public boolean deleteTask(String id) {
-        if (taskRepository.existsById(id)) {
-            taskRepository.deleteById(id);
+    public boolean deleteTask(String taskId) {
+        if (taskRepository.existsById(taskId)) {
+            taskRepository.deleteById(taskId);
             return true;
         } 
         return false;

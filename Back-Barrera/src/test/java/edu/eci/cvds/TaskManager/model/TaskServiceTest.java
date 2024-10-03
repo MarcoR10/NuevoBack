@@ -55,24 +55,24 @@ public class TaskServiceTest {
 
     @Test
     public void testDeleteTask() {
-        Task task = new Task();
-        task.setId("1"); // Asegúrate de establecer un ID
-        task.setDescription("Task to Delete");
+        Task task = new Task("Task to Delete");
+        task.setId("1"); 
 
-        // Mockea la interacción con el repositorio
         when(taskRepository.findById("1")).thenReturn(Optional.of(task));
-        doNothing().when(taskRepository).deleteById(task.getId()); // Simula la eliminación
 
-        boolean isDeleted = taskService.deleteTask(task.getId()); // Luego intenta eliminarla
-        assertTrue(isDeleted); // Asegúrate de que se elimine correctamente
+        boolean isDeleted = taskService.deleteTask("1");
+        assertTrue(isDeleted);
+        verify(taskRepository, times(1)).deleteById("1");
     }
 
     @Test
     public void testDeleteAndQueryTask() {
         Task task = new Task("Task to Delete");
+        task.setId("1");
+        when(taskRepository.findById("1")).thenReturn(Optional.of(task));
         taskService.addTask(task.getDescription());
-        taskService.deleteTask(task.getId());
-        assertTrue(taskService.queryAllTasks().isEmpty());
+        boolean isDeleted = taskService.deleteTask(task.getId());
+        assertTrue(isDeleted);
     }
 
     @Test

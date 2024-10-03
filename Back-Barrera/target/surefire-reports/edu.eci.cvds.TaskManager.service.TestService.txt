@@ -1,0 +1,20 @@
+-------------------------------------------------------------------------------
+Test set: edu.eci.cvds.TaskManager.service.TestService
+-------------------------------------------------------------------------------
+Tests run: 2, Failures: 0, Errors: 2, Skipped: 0, Time elapsed: 0.056 s <<< FAILURE! -- in edu.eci.cvds.TaskManager.service.TestService
+edu.eci.cvds.TaskManager.service.TestService.testGetTask_NoTasks -- Time elapsed: 0.020 s <<< ERROR!
+java.lang.RuntimeException: Task not found
+	at edu.eci.cvds.TaskManager.service.TaskService.getTaskByDescription(TaskService.java:25)
+	at edu.eci.cvds.TaskManager.service.TestService.testGetTask_NoTasks(TestService.java:43)
+	at java.base/java.lang.reflect.Method.invoke(Method.java:580)
+	at java.base/java.util.ArrayList.forEach(ArrayList.java:1597)
+	at java.base/java.util.ArrayList.forEach(ArrayList.java:1597)
+
+edu.eci.cvds.TaskManager.service.TestService.testGetTask_Success -- Time elapsed: 0.007 s <<< ERROR!
+java.lang.RuntimeException: Task not found
+	at edu.eci.cvds.TaskManager.service.TaskService.getTaskByDescription(TaskService.java:25)
+	at edu.eci.cvds.TaskManager.service.TestService.testGetTask_Success(TestService.java:34)
+	at java.base/java.lang.reflect.Method.invoke(Method.java:580)
+	at java.base/java.util.ArrayList.forEach(ArrayList.java:1597)
+	at java.base/java.util.ArrayList.forEach(ArrayList.java:1597)
+
