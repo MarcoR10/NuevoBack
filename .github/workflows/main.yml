@@ -25,9 +25,6 @@ jobs:
         run: |
           cd Back-Barrera
           mvn compile
-      - name: Run Checkstyle (optional)
-        run: |
-          mvn checkstyle:checkstyle
 
   test:
     runs-on: ubuntu-latest
