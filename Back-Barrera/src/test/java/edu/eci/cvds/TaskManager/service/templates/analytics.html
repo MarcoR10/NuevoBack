@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Analítica</title>
+    <link rel="stylesheet" href="styles.css"> <!-- Añadir tu archivo CSS si es necesario -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script> <!-- Cargar Chart.js -->
+</head>
+<body>
+    <div class="container">
+        <h1>Analítica</h1>
+        <h2>Selecciona el tipo de gráfico:</h2>
+        <select id="chartType">
+            <option value="histogram">Histograma de Dificultad</option>
+            <!-- Puedes agregar más tipos de gráficos aquí -->
+        </select>
+        <button id="generateChartBtn">Generar Gráfico</button>
+
+        <canvas id="myChart" width="400" height="200"></canvas>
+    </div>
+
+    <script>
+        document.getElementById("generateChartBtn").addEventListener("click", function() {
+            const chartType = document.getElementById("chartType").value;
+            if (chartType === "histogram") {
+                fetch("/api/tasks/difficulty")
+                    .then(response => response.json())
+                    .then(data => {
+                        const ctx = document.getElementById('myChart').getContext('2d');
+                        const chart = new Chart(ctx, {
+                            type: 'bar', // Tipo de gráfico
+                            data: {
+                                labels: Object.keys(data), // Etiquetas para las dificultades
+                                datasets: [{
+                                    label: 'Cantidad de Tareas',
+                                    data: Object.values(data), // Cantidades de cada dificultad
+                                    backgroundColor: 'rgba(75, 192, 192, 0.6)',
+                                }]
+                            },
+                            options: {
+                                scales: {
+                                    y: {
+                                        beginAtZero: true
+                                    }
+                                }
+                            }
+                        });
+                    });
+            }
+        });
+    </script>
+</body>
+</html>
