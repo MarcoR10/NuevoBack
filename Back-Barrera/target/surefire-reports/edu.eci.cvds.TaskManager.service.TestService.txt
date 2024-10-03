@@ -1,4 +1,4 @@
 -------------------------------------------------------------------------------
 Test set: edu.eci.cvds.TaskManager.service.TestService
 -------------------------------------------------------------------------------
-Tests run: 1, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 1.000 s -- in edu.eci.cvds.TaskManager.service.TestService
+Tests run: 5, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 2.791 s -- in edu.eci.cvds.TaskManager.service.TestService

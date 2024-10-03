@@ -43,8 +43,4 @@ public class Task {
         this.description = description;
     }
 
-    public Task orElseThrow(Object object) {
-        throw new UnsupportedOperationException("Unimplemented method 'orElseThrow'");
-    }
-
 }

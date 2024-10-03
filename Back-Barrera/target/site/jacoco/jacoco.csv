@@ -1,6 +1,6 @@
 GROUP,PACKAGE,CLASS,INSTRUCTION_MISSED,INSTRUCTION_COVERED,BRANCH_MISSED,BRANCH_COVERED,LINE_MISSED,LINE_COVERED,COMPLEXITY_MISSED,COMPLEXITY_COVERED,METHOD_MISSED,METHOD_COVERED
-TaskManager,edu.eci.cvds.TaskManager.model,Task,12,26,0,0,4,12,3,6,3,6
-TaskManager,edu.eci.cvds.TaskManager.service,TaskService,82,11,4,0,18,4,11,2,9,2
+TaskManager,edu.eci.cvds.TaskManager.model,Task,4,29,0,0,2,13,1,7,1,7
+TaskManager,edu.eci.cvds.TaskManager.service,TaskService,51,42,3,1,11,11,8,5,6,5
 TaskManager,edu.eci.cvds.TaskManager.config,webconfig,0,45,0,0,0,6,0,2,0,2
 TaskManager,edu.eci.cvds.TaskManager.controller,TaskController,61,6,2,0,16,3,8,1,7,1
 TaskManager,edu.eci.cvds.TaskManager,TaskManagerApplication,5,3,0,0,2,1,1,1,1,1
