@@ -15,6 +15,14 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v2
 
+      - name: List files in root
+        run: ls -la
+
+      - name: List files in Back-Barrera
+        run: |
+          cd Back-Barrera
+          ls -la
+
       - name: Set up JDK
         uses: actions/setup-java@v2
         with:
