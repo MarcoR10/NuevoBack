@@ -13,7 +13,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout code
-        uses: actions/checkout@v3
+        uses: actions/checkout@v3  # You can update to @v3 here if needed
 
       - name: Set up JDK
         uses: actions/setup-java@v2
@@ -25,17 +25,6 @@ jobs:
         run: |
           cd Back-Barrera
           mvn compile
-
-      - name: Run code analysis (optional)
-        uses: actions/setup-node@v3
-        with:
-          node-version: '18.x'
-
-      - name: Run ESLint (optional)
-        run: |
-          npm install -g eslint
-          eslint Back-Barrera
-
       - name: Run Checkstyle (optional)
         run: |
           mvn checkstyle:checkstyle
@@ -45,10 +34,10 @@ jobs:
     needs: build
     strategy:
       matrix:
-        java: '21.0.2'
+        java: ['11', '17', '21.0.2']  # List of Java versions to test with
     steps:
       - name: Checkout code
-        uses: actions/checkout@v2
+        uses: actions/checkout@v3  # You can update to @v3 here if needed
 
       - name: Set up JDK
         uses: actions/setup-java@v2
@@ -66,7 +55,7 @@ jobs:
     needs: test
     steps:
       - name: Checkout code
-        uses: actions/checkout@v3
+        uses: actions/checkout@v3  # You can update to @v3 here if needed
 
       - name: Set up JDK
         uses: actions/setup-java@v2
