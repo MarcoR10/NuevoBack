@@ -12,7 +12,7 @@ import java.util.*;
 
 @RestController
 @RequestMapping("/auth")
-@CrossOrigin(origins = "http://localhost:3000")  // Ajusta esto dependiendo de tu frontend
+@CrossOrigin(origins = "http://localhost:3000")
 public class AuthController {
 
     @Autowired
@@ -29,13 +29,23 @@ public class AuthController {
         }
     }
 
-   @PostMapping("/login")
+    @PostMapping("/login")
     public ResponseEntity<?> login(@RequestBody Map<String, String> loginData, HttpSession session) {
-    String username = loginData.get("username");
-    String password = loginData.get("password");
-    User authenticatedUser = userService.authenticate(username, password); // Comparación sin encriptación
-    session.setAttribute("user", authenticatedUser); // Guardar el usuario en la sesión
-    return ResponseEntity.ok("Login exitoso");
-}
+        String username = loginData.get("username");
+        String password = loginData.get("password");
+        
+        try {
+            User authenticatedUser = userService.authenticate(username, password); // Comparación sin encriptación
+            if (authenticatedUser != null) {
+                session.setAttribute("user", authenticatedUser); // Guardar el usuario en la sesión
+                return ResponseEntity.ok("Login exitoso");
+            } else {
+                return ResponseEntity.status(401).body("Credenciales inválidas");
+            }
+        } catch (Exception e) {
+            return ResponseEntity.status(500).body("Error del servidor: " + e.getMessage());
+        }
+    }
+    
 
 }
