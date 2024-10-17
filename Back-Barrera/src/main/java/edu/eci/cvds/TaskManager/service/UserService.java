@@ -2,6 +2,9 @@ package edu.eci.cvds.TaskManager.service;
 
 import edu.eci.cvds.TaskManager.model.User;
 import edu.eci.cvds.TaskManager.repository.UserRepository;
+
+import java.util.*;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -13,10 +16,15 @@ public class UserService {
 
     // Registro de usuario sin encriptación
     public User registerUser(String username, String email, String password) {
-        if (userRepository.findByUsername(username).isPresent()) {
+        Optional<User> existingUser = userRepository.findByUsername(username);
+        if (existingUser.isPresent()) {
+            System.out.println("Usuario encontrado: " + existingUser.get().getUsername());
             throw new RuntimeException("El nombre de usuario ya está en uso.");
         }
-        User user = new User(username, email, password);
+        User user = new User();
+        user.setUsername(username);
+        user.setEmail(email);
+        user.setPassword(password);
         return userRepository.save(user);
     }
 
@@ -29,5 +37,9 @@ public class UserService {
             throw new RuntimeException("Contraseña incorrecta.");
         }
         return user;
+    }
+
+    public List<User> getAllUsers() {
+        return userRepository.findAll();
     }
 }

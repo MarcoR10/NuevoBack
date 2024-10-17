@@ -20,6 +20,7 @@ public class AuthController {
 
     // Endpoint para registrar un nuevo usuario
     @PostMapping("/register")
+    @CrossOrigin(origins = "http://localhost:3000/register")
     public ResponseEntity<?> registerUser(@RequestBody User user) {
         try {
             User newUser = userService.registerUser(user.getUsername(), user.getEmail(), user.getPassword());
@@ -30,6 +31,7 @@ public class AuthController {
     }
 
     @PostMapping("/login")
+    @CrossOrigin(origins = "http://localhost:3000/login", allowCredentials = "true")
     public ResponseEntity<?> login(@RequestBody Map<String, String> loginData, HttpSession session) {
         String username = loginData.get("username");
         String password = loginData.get("password");
@@ -45,6 +47,23 @@ public class AuthController {
         } catch (Exception e) {
             return ResponseEntity.status(500).body("Error del servidor: " + e.getMessage());
         }
+    }
+
+    @PostMapping("/logout")
+    @CrossOrigin(origins = "http://localhost:3000")
+    public ResponseEntity<?> logout(HttpSession session) {
+        try {
+            session.invalidate(); // Invalida la sesión actual
+            return ResponseEntity.ok("Sesión cerrada con éxito.");
+        } catch (Exception e) {
+            return ResponseEntity.status(500).body("Error al cerrar la sesión: " + e.getMessage());
+        }
+    }
+
+
+    @GetMapping("/all-users")
+    public List<User> getAllUsers() {
+        return userService.getAllUsers();
     }
     
 

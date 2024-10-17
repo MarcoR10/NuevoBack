@@ -1,6 +1,10 @@
+edu\eci\cvds\TaskManager\repository\UserRepository.class
 edu\eci\cvds\TaskManager\TaskManagerApplication.class
 edu\eci\cvds\TaskManager\controller\TaskController.class
 edu\eci\cvds\TaskManager\service\TaskService.class
+edu\eci\cvds\TaskManager\model\User.class
 edu\eci\cvds\TaskManager\repository\TaskRepository.class
 edu\eci\cvds\TaskManager\config\webconfig.class
+edu\eci\cvds\TaskManager\service\UserService.class
+edu\eci\cvds\TaskManager\controller\AuthController.class
 edu\eci\cvds\TaskManager\model\Task.class
