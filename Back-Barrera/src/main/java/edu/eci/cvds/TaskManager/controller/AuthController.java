@@ -1,6 +1,7 @@
 package edu.eci.cvds.TaskManager.controller;
 
 import edu.eci.cvds.TaskManager.model.User;
+import edu.eci.cvds.TaskManager.security.TokenUtils;
 import edu.eci.cvds.TaskManager.service.UserService;
 
 import jakarta.servlet.http.HttpSession;
@@ -32,20 +33,33 @@ public class AuthController {
     }
 
     @PostMapping("/login")
-    @CrossOrigin(origins = "http://localhost:3000/login", allowCredentials = "true")
-    public ResponseEntity<?> login(@RequestBody Map<String, String> loginData, HttpSession session) {
+    @CrossOrigin(origins = "http://localhost:3000/login")
+    public ResponseEntity<?> login(@RequestBody Map<String, String> loginData) {
         String username = loginData.get("username");
         String password = loginData.get("password");
-        
+        System.out.println("Aqui no esta el error1");
         try {
-            User authenticatedUser = userService.authenticate(username, password); // Comparación sin encriptación
+            System.out.println("Intento de login con: " + username + " y contraseña: " + password);
+
+            // Autenticación del usuario
+            User authenticatedUser = userService.authenticate(username, password);
+            
+            // Si la autenticación es exitosa, generar el token JWT
             if (authenticatedUser != null) {
-                session.setAttribute("user", authenticatedUser); // Guardar el usuario en la sesión
-                return ResponseEntity.ok("Login exitoso");
+                String token = TokenUtils.createToken(authenticatedUser.getUsername(), authenticatedUser.getEmail());
+                
+                // Devolver el token en la respuesta
+                Map<String, Object> response = new HashMap<>();
+                response.put("token", token);
+                response.put("message", "Login exitoso");
+                
+                return ResponseEntity.ok(response);
             } else {
+                System.out.println("Aqui no está el error2");
                 return ResponseEntity.status(401).body("Credenciales inválidas");
             }
         } catch (Exception e) {
+            System.out.println("Aqui no está el error3");
             return ResponseEntity.status(500).body("Error del servidor: " + e.getMessage());
         }
     }

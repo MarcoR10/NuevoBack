@@ -6,41 +6,47 @@ import edu.eci.cvds.TaskManager.repository.UserRepository;
 import java.util.*;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 @Service
-<span class="fc" id="L12">public class UserService {</span>
+<span class="fc" id="L13">public class UserService {</span>
 
     @Autowired
     private UserRepository userRepository;
 
+    @Autowired
+    private PasswordEncoder passwordEncoder;
+
     // Registro de usuario sin encriptación
     public User registerUser(String username, String email, String password) {
-<span class="nc" id="L19">        Optional&lt;User&gt; existingUser = userRepository.findByUsername(username);</span>
-<span class="nc bnc" id="L20" title="All 2 branches missed.">        if (existingUser.isPresent()) {</span>
-<span class="nc" id="L21">            System.out.println(&quot;Usuario encontrado: &quot; + existingUser.get().getUsername());</span>
-<span class="nc" id="L22">            throw new RuntimeException(&quot;El nombre de usuario ya está en uso.&quot;);</span>
+<span class="nc" id="L23">        Optional&lt;User&gt; existingUser = userRepository.findByUsername(username);</span>
+<span class="nc bnc" id="L24" title="All 2 branches missed.">        if (existingUser.isPresent()) {</span>
+<span class="nc" id="L25">            System.out.println(&quot;Usuario encontrado: &quot; + existingUser.get().getUsername());</span>
+<span class="nc" id="L26">            throw new RuntimeException(&quot;El nombre de usuario ya está en uso.&quot;);</span>
         }
-<span class="nc" id="L24">        User user = new User();</span>
-<span class="nc" id="L25">        user.setUsername(username);</span>
-<span class="nc" id="L26">        user.setEmail(email);</span>
-<span class="nc" id="L27">        user.setPassword(password);</span>
-<span class="nc" id="L28">        return userRepository.save(user);</span>
+<span class="nc" id="L28">        User user = new User();</span>
+<span class="nc" id="L29">        user.setUsername(username);</span>
+<span class="nc" id="L30">        user.setEmail(email);</span>
+<span class="nc" id="L31">        user.setPassword(passwordEncoder.encode(password));</span>
+<span class="nc" id="L32">        return userRepository.save(user);</span>
     }
 
     // Autenticación de usuario sin encriptación
     public User authenticate(String username, String rawPassword) {
-<span class="nc" id="L33">        User user = userRepository.findByUsername(username)</span>
-<span class="nc" id="L34">            .orElseThrow(() -&gt; new RuntimeException(&quot;Usuario no encontrado.&quot;));</span>
-        // Comparar la contraseña directamente
-<span class="nc bnc" id="L36" title="All 2 branches missed.">        if (!user.getPassword().equals(rawPassword)) {</span>
-<span class="nc" id="L37">            throw new RuntimeException(&quot;Contraseña incorrecta.&quot;);</span>
+<span class="nc" id="L37">        User user = userRepository.findByUsername(username)</span>
+<span class="nc" id="L38">            .orElseThrow(() -&gt; new RuntimeException(&quot;Usuario no encontrado.&quot;));</span>
+        
+        // Verificamos si la contraseña en texto plano coincide con la encriptada
+<span class="nc bnc" id="L41" title="All 2 branches missed.">        if (!passwordEncoder.matches(rawPassword, user.getPassword())) {</span>
+<span class="nc" id="L42">            throw new RuntimeException(&quot;Contraseña incorrecta.&quot;);</span>
         }
-<span class="nc" id="L39">        return user;</span>
+<span class="nc" id="L44">        return user;</span>
     }
 
     public List&lt;User&gt; getAllUsers() {
-<span class="nc" id="L43">        return userRepository.findAll();</span>
+<span class="nc" id="L48">        return userRepository.findAll();</span>
     }
+
 }
 </pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.12.202403310830</span></div></body></html>

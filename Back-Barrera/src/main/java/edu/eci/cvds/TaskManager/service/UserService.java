@@ -6,6 +6,7 @@ import edu.eci.cvds.TaskManager.repository.UserRepository;
 import java.util.*;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 @Service
@@ -13,6 +14,9 @@ public class UserService {
 
     @Autowired
     private UserRepository userRepository;
+
+    @Autowired
+    private PasswordEncoder passwordEncoder;
 
     // Registro de usuario sin encriptación
     public User registerUser(String username, String email, String password) {
@@ -24,7 +28,7 @@ public class UserService {
         User user = new User();
         user.setUsername(username);
         user.setEmail(email);
-        user.setPassword(password);
+        user.setPassword(passwordEncoder.encode(password));
         return userRepository.save(user);
     }
 
@@ -32,8 +36,9 @@ public class UserService {
     public User authenticate(String username, String rawPassword) {
         User user = userRepository.findByUsername(username)
             .orElseThrow(() -> new RuntimeException("Usuario no encontrado."));
-        // Comparar la contraseña directamente
-        if (!user.getPassword().equals(rawPassword)) {
+        
+        // Verificamos si la contraseña en texto plano coincide con la encriptada
+        if (!passwordEncoder.matches(rawPassword, user.getPassword())) {
             throw new RuntimeException("Contraseña incorrecta.");
         }
         return user;
@@ -42,4 +47,5 @@ public class UserService {
     public List<User> getAllUsers() {
         return userRepository.findAll();
     }
+
 }
