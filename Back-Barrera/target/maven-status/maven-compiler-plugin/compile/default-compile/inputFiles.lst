@@ -1,10 +1,11 @@
-C:\Users\santi\CVDS\Lab06-CVDS202402\NuevoBack\Back-Barrera\src\main\java\edu\eci\cvds\TaskManager\config\webconfig.java
-C:\Users\santi\CVDS\Lab06-CVDS202402\NuevoBack\Back-Barrera\src\main\java\edu\eci\cvds\TaskManager\controller\AuthController.java
-C:\Users\santi\CVDS\Lab06-CVDS202402\NuevoBack\Back-Barrera\src\main\java\edu\eci\cvds\TaskManager\controller\TaskController.java
-C:\Users\santi\CVDS\Lab06-CVDS202402\NuevoBack\Back-Barrera\src\main\java\edu\eci\cvds\TaskManager\model\Task.java
-C:\Users\santi\CVDS\Lab06-CVDS202402\NuevoBack\Back-Barrera\src\main\java\edu\eci\cvds\TaskManager\model\User.java
-C:\Users\santi\CVDS\Lab06-CVDS202402\NuevoBack\Back-Barrera\src\main\java\edu\eci\cvds\TaskManager\repository\TaskRepository.java
-C:\Users\santi\CVDS\Lab06-CVDS202402\NuevoBack\Back-Barrera\src\main\java\edu\eci\cvds\TaskManager\repository\UserRepository.java
-C:\Users\santi\CVDS\Lab06-CVDS202402\NuevoBack\Back-Barrera\src\main\java\edu\eci\cvds\TaskManager\service\TaskService.java
-C:\Users\santi\CVDS\Lab06-CVDS202402\NuevoBack\Back-Barrera\src\main\java\edu\eci\cvds\TaskManager\service\UserService.java
-C:\Users\santi\CVDS\Lab06-CVDS202402\NuevoBack\Back-Barrera\src\main\java\edu\eci\cvds\TaskManager\TaskManagerApplication.java
+C:\Users\Andres Rodriguez\Documents\NuevoBack\Back-Barrera\src\main\java\edu\eci\cvds\TaskManager\config\webconfig.java
+C:\Users\Andres Rodriguez\Documents\NuevoBack\Back-Barrera\src\main\java\edu\eci\cvds\TaskManager\controller\AuthController.java
+C:\Users\Andres Rodriguez\Documents\NuevoBack\Back-Barrera\src\main\java\edu\eci\cvds\TaskManager\controller\RestTemplateConfig.java
+C:\Users\Andres Rodriguez\Documents\NuevoBack\Back-Barrera\src\main\java\edu\eci\cvds\TaskManager\controller\TaskController.java
+C:\Users\Andres Rodriguez\Documents\NuevoBack\Back-Barrera\src\main\java\edu\eci\cvds\TaskManager\model\Task.java
+C:\Users\Andres Rodriguez\Documents\NuevoBack\Back-Barrera\src\main\java\edu\eci\cvds\TaskManager\model\User.java
+C:\Users\Andres Rodriguez\Documents\NuevoBack\Back-Barrera\src\main\java\edu\eci\cvds\TaskManager\repository\TaskRepository.java
+C:\Users\Andres Rodriguez\Documents\NuevoBack\Back-Barrera\src\main\java\edu\eci\cvds\TaskManager\repository\UserRepository.java
+C:\Users\Andres Rodriguez\Documents\NuevoBack\Back-Barrera\src\main\java\edu\eci\cvds\TaskManager\service\TaskService.java
+C:\Users\Andres Rodriguez\Documents\NuevoBack\Back-Barrera\src\main\java\edu\eci\cvds\TaskManager\service\UserService.java
+C:\Users\Andres Rodriguez\Documents\NuevoBack\Back-Barrera\src\main\java\edu\eci\cvds\TaskManager\TaskManagerApplication.java

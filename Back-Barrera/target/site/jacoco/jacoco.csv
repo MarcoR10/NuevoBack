@@ -6,4 +6,5 @@ TaskManager,edu.eci.cvds.TaskManager.service,UserService,68,3,4,0,15,1,6,1,4,1
 TaskManager,edu.eci.cvds.TaskManager.config,webconfig,0,47,0,0,0,7,0,2,0,2
 TaskManager,edu.eci.cvds.TaskManager.controller,TaskController,61,6,2,0,16,3,8,1,7,1
 TaskManager,edu.eci.cvds.TaskManager.controller,AuthController,74,3,2,0,18,1,5,1,4,1
+TaskManager,edu.eci.cvds.TaskManager.controller,RestTemplateConfig,0,37,0,0,0,14,0,2,0,2
 TaskManager,edu.eci.cvds.TaskManager,TaskManagerApplication,5,3,0,0,2,1,1,1,1,1
