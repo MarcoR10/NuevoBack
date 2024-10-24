@@ -12,25 +12,24 @@ import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 
+import lombok.AllArgsConstructor;
+
 @Configuration
+@AllArgsConstructor
 @EnableWebSecurity
 public class WebSecurityConfig {
 
 	private final UserDetailServiceImpl userDetailsService;
 	private final JWTAuthorizationFilter jwtAuthorizationFilter;
 
-	@Autowired
-	public WebSecurityConfig(UserDetailServiceImpl userDetailsService, JWTAuthorizationFilter jwtAuthorizationFilter) {
-		this.userDetailsService = userDetailsService;
-		this.jwtAuthorizationFilter = jwtAuthorizationFilter;
-	}
+	
 
 	@Bean
 	public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
 		http
-				.csrf().disable() // Desactivar CSRF para pruebas (considera habilitarlo en producción)
+				.cors().and().csrf().disable() // Desactivar CSRF para pruebas (considera habilitarlo en producción)
 				.authorizeHttpRequests(authorize -> authorize
-						.requestMatchers("/public/**").permitAll() // Rutas públicas
+						.requestMatchers("/auth/login", "/auth/register", "/auth/all-users").permitAll() // Rutas públicas
 						.anyRequest().authenticated() // Cualquier otra petición debe estar autenticada
 				)
 				.httpBasic(); // Autenticación básica

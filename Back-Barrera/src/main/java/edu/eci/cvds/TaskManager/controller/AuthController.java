@@ -43,23 +43,25 @@ public class AuthController {
 
             // Autenticación del usuario
             User authenticatedUser = userService.authenticate(username, password);
-            
+            System.out.println("Aqui no está el error2");
             // Si la autenticación es exitosa, generar el token JWT
             if (authenticatedUser != null) {
+                System.out.println("Aqui no está el error3");
                 String token = TokenUtils.createToken(authenticatedUser.getUsername(), authenticatedUser.getEmail());
-                
+                System.out.println("Aqui no está el error4");
+                System.out.println("Token generado: " + token);
                 // Devolver el token en la respuesta
                 Map<String, Object> response = new HashMap<>();
                 response.put("token", token);
                 response.put("message", "Login exitoso");
-                
+                System.out.println("Aqui no está el error5");
                 return ResponseEntity.ok(response);
             } else {
-                System.out.println("Aqui no está el error2");
+                
                 return ResponseEntity.status(401).body("Credenciales inválidas");
             }
         } catch (Exception e) {
-            System.out.println("Aqui no está el error3");
+            System.out.println("Si hubo error :(");
             return ResponseEntity.status(500).body("Error del servidor: " + e.getMessage());
         }
     }
