@@ -1,0 +1,73 @@
+name: Primer WorkFlow
+
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+    branches:
+      - main
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3  # You can update to @v3 here if needed
+
+      - name: Set up JDK
+        uses: actions/setup-java@v2
+        with:
+          java-version: '21.0.2'
+          distribution: 'temurin'
+
+      - name: Compile project
+        run: |
+          cd Back-Barrera
+          mvn compile
+
+  test:
+    runs-on: ubuntu-latest
+    needs: build
+    strategy:
+      matrix:
+        java-version: ['21.0.2']  # List of Java versions to test with
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3  # You can update to @v3 here if needed
+
+      - name: Set up JDK
+        uses: actions/setup-java@v2
+        with:
+          java-version: '21.0.2'
+          distribution: 'temurin'
+
+      - name: Run tests
+        run: |
+          cd Back-Barrera
+          mvn verify
+
+  deploy:
+    runs-on: ubuntu-latest
+    needs: test
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3  # You can update to @v3 here if needed
+
+      - name: Set up JDK
+        uses: actions/setup-java@v3
+        with:
+          distribution: 'temurin'
+          java-version: '21.0.2'
+
+      - name: Build jar
+        run: |
+          cd Back-Barrera
+          mvn package
+
+      - name: Azure Web App Deploy
+        uses: actions/checkout@v3
+        with:
+          app-name: 'CVDS-TaskManager'
+          publish-profile: ${{ secrets.AZURE_PUBLISH_PROFILE }}
+          package: ./target/TaskManager-0.0.1-SNAPSHOT.jar
