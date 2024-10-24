@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="es"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>RestTemplateConfig.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">TaskManager</a> &gt; <a href="index.source.html" class="el_package">edu.eci.cvds.TaskManager.controller</a> &gt; <span class="el_source">RestTemplateConfig.java</span></div><h1>RestTemplateConfig.java</h1><pre class="source lang-java linenums">package edu.eci.cvds.TaskManager.controller;
+
+import org.apache.hc.client5.http.impl.classic.CloseableHttpClient;
+import org.apache.hc.client5.http.impl.classic.HttpClients;
+import org.apache.hc.client5.http.impl.io.PoolingHttpClientConnectionManagerBuilder;
+import org.apache.hc.client5.http.io.HttpClientConnectionManager;
+import org.apache.hc.client5.http.ssl.SSLConnectionSocketFactory;
+import org.apache.hc.client5.http.ssl.SSLConnectionSocketFactoryBuilder;
+import org.apache.hc.core5.ssl.SSLContextBuilder;
+import org.springframework.http.client.HttpComponentsClientHttpRequestFactory;
+import org.springframework.web.client.RestTemplate;
+import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Configuration;
+
+import javax.net.ssl.SSLContext;
+
+@Configuration
+<span class="fc" id="L18">public class RestTemplateConfig {</span>
+
+    @Bean
+    public RestTemplate restTemplate() throws Exception {
+<span class="fc" id="L22">        SSLContext sslContext = SSLContextBuilder.create()</span>
+<span class="fc" id="L23">        .loadTrustMaterial(getClass().getClassLoader().getResource(&quot;keystore/baeldung.p12&quot;), &quot;123456&quot;.toCharArray())</span>
+<span class="fc" id="L24">        .build();</span>
+
+<span class="fc" id="L26">SSLConnectionSocketFactory sslSocketFactory = SSLConnectionSocketFactoryBuilder.create()</span>
+<span class="fc" id="L27">        .setSslContext(sslContext)</span>
+<span class="fc" id="L28">        .build();</span>
+
+<span class="fc" id="L30">HttpClientConnectionManager connectionManager = PoolingHttpClientConnectionManagerBuilder.create()</span>
+<span class="fc" id="L31">        .setSSLSocketFactory(sslSocketFactory)</span>
+<span class="fc" id="L32">        .build();</span>
+
+<span class="fc" id="L34">CloseableHttpClient httpClient = HttpClients.custom()</span>
+<span class="fc" id="L35">        .setConnectionManager(connectionManager)</span>
+<span class="fc" id="L36">        .build();</span>
+
+<span class="fc" id="L38">    return new RestTemplate(new HttpComponentsClientHttpRequestFactory(httpClient));      </span>
+}
+}
+
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.12.202403310830</span></div></body></html>
