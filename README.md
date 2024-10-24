@@ -1,29 +1,27 @@
-# Proyecto de Administración de Tareas
+# Proyecto de Administración de Tareas - (CI/CD y Seguridad)
 
 ## Descripción General
 
-Este proyecto es una aplicación de gestión de tareas que incorpora un flujo de trabajo CI/CD utilizando GitHub Actions para la integración continua y despliegue automatizado en Azure App Service. Además, se agregan funcionalidades para el análisis de datos de las tareas mediante gráficos interactivos generados con JavaScript.
+Este proyecto de gestión de tareas implementa un pipeline CI/CD utilizando GitHub Actions para la integración continua y despliegue automatizado en Azure App Service. Además, en el Laboratorio 8, se añade seguridad con Spring Security y se aplican certificados SSL para proteger las comunicaciones HTTP de la aplicación.
 
 ## Contenidos
 
 1. [Objetivos](#objetivos)
 2. [Requisitos](#requisitos)
-3. [Parte I: CI/CD](#parte-i-ci-cd)
+3. [Parte I: CI/CD (Laboratorio 5)](#parte-i-ci-cd-laboratorio-5)
    - [Pipeline de GitHub Actions](#pipeline-de-github-actions)
    - [Pruebas Unitarias](#pruebas-unitarias)
    - [Despliegue en Azure](#despliegue-en-azure)
-4. [Parte II: Gráficos](#parte-ii-gráficos)
-   - [Generación Procedural de Datos](#generación-procedural-de-datos)
-   - [Visualizaciones](#visualizaciones)
+4. [Parte II: Seguridad (Laboratorio 8)](#parte-ii-seguridad-laboratorio-8)
+   - [Spring Security](#spring-security)
+   - [Certificados SSL](#certificados-ssl)
 5. [Entrega Final](#entrega-final)
 6. [Conclusiones](#conclusiones)
 
 ## Objetivos
 
-- Crear un pipeline de CI/CD en GitHub Actions con trabajos de build, test y deploy.
-- Ejecutar pruebas unitarias para asegurar la correcta funcionalidad de la aplicación.
-- Desplegar la aplicación en Azure App Service.
-- Generar gráficos interactivos para el análisis de datos relacionados con las tareas gestionadas.
+- **CI/CD**: Crear un pipeline automatizado para integración continua y despliegue utilizando GitHub Actions y Azure App Service.
+- **Seguridad**: Implementar autenticación, autorización con roles y protección SSL en el proyecto de gestión de tareas.
 
 ## Requisitos
 
@@ -33,49 +31,56 @@ Este proyecto es una aplicación de gestión de tareas que incorpora un flujo de
 - **Docker**
 - **Azure App Service**
 - **MySQL**
+- **MongoDB**
 - **GitHub Actions**
-- **Bibliotecas de Gráficos (JavaScript)**: D3.js, Chart.js, Google Charts.
+- **Spring Security**
 
-## Parte I: CI/CD
+## Parte I: CI/CD 
 
 ### Pipeline de GitHub Actions
 
-Se configuró un workflow en GitHub Actions con tres trabajos:
+Se configuró un workflow en GitHub Actions con tres trabajos para automatizar el proceso de CI/CD:
 
 1. **Build**: Ejecuta la compilación (`mvn compile`) del proyecto.
-2. **Test**: Ejecuta las pruebas unitarias (`mvn verify`). Este trabajo depende de la compilación exitosa.
-3. **Deploy**: Despliega la aplicación en Azure App Service usando `azure/webapps-deploy@v2`. Este trabajo depende de la ejecución exitosa de las pruebas.
+2. **Test**: Ejecuta pruebas unitarias (`mvn verify`). Este trabajo depende de una compilación exitosa.
+3. **Deploy**: Despliega la aplicación en Azure App Service utilizando `azure/webapps-deploy@v2`, asegurando que el despliegue solo ocurra tras la finalización exitosa de los tests.
 
 ### Pruebas Unitarias
 
-Se añadieron pruebas para validar el correcto funcionamiento del servicio de tareas. Entre las pruebas implementadas se encuentran:
-- Consultar tareas registradas.
-- Crear y eliminar tareas.
-- Validar las respuestas del servicio en diferentes estados.
+Se implementaron pruebas unitarias para asegurar la funcionalidad del servicio de tareas:
+- Consulta de tareas registradas.
+- Creación y eliminación de tareas.
+- Validación del comportamiento del servicio en diferentes estados.
 
 ### Despliegue en Azure
 
-Se desplegó la aplicación en **Azure App Service**, configurando las variables de entorno y la base de datos MySQL para su correcto funcionamiento. Se verificó que el endpoint estuviera disponible y se solucionaron problemas relacionados con la configuración del puerto y la base de datos.
+Se configuró el despliegue automático en **Azure App Service**, ajustando el puerto de despliegue y configurando la conexión a la base de datos MySQL. Se verificó el correcto funcionamiento del endpoint público de la aplicación.
 
-## Parte II: Gráficos
+## Parte II: Seguridad 
 
-### Generación Procedural de Datos
+### Spring Security
 
-Se añadieron nuevos atributos a las tareas (nivel de dificultad y prioridad) y se generaron de manera procedural entre 100 y 1000 tareas. Estos datos se utilizan para alimentar gráficos de análisis.
+Se añadió autenticación y autorización a la aplicación utilizando Spring Security:
+- **Autenticación**: Se protegió el inicio de sesión y la gestión de usuarios. Las credenciales se almacenan cifradas en la base de datos MongoDB.
+- **Roles de usuario**: Se definieron dos roles:
+  - **Usuario**: Acceso a la gestión de tareas.
+  - **Administrador**: Acceso a paneles de control y gráficos analíticos.
+  
+Se ajustaron las vistas de la aplicación para restringir el acceso a determinadas funcionalidades según el rol del usuario.
 
-### Visualizaciones
+### Certificados SSL
 
-Se desarrolló una nueva página "Analítica" con varias gráficas que muestran los siguientes datos:
-- **Histograma de Dificultad**: Distribución de tareas por nivel de dificultad.
-- **Número de Tareas Finalizadas por Tiempo**: Gráfica de líneas mostrando el progreso de tareas completadas.
-- **Promedios de Tareas por Prioridad**: Representación gráfica del promedio de tareas según su prioridad.
-- **Tiempo Total Invertido por Tareas Realizadas**: Gráfica que muestra el tiempo acumulado invertido en tareas completadas.
+Para asegurar las comunicaciones, se implementó un certificado SSL autofirmado en la aplicación utilizando Spring Boot. Todas las peticiones HTTP ahora están protegidas con HTTPS, garantizando la seguridad de la transmisión de datos entre el cliente y el servidor.
 
 ## Entrega Final
 
-- **URL de la aplicación desplegada en Azure**: [App en Azure](#) (https://dev.azure.com/paulapaez/_git/TaskManager).
-- **Plan de tareas en Azure DevOps**: Actualización del plan con las nuevas tareas y ajustes.
+- **CI/CD**:
+  - **URL de la aplicación en Azure**: [App en Azure](#) (enlace al despliegue).
+  - **Repositorio GitHub con CI/CD configurado**: [Repositorio GitHub](#) (enlace al repositorio).
+- **Seguridad**:
+  - Se aplicaron las medidas de seguridad necesarias, asegurando la autenticación y protección de la comunicación.
+  - **Plan de tareas en Azure DevOps**: Actualizado con las nuevas tareas y ajustes necesarios.
 
 ## Conclusiones
 
-Este laboratorio permitió integrar un flujo CI/CD completo, automatizando el desarrollo, pruebas y despliegue de la aplicación en la nube. Además, se añadieron funcionalidades para la generación y visualización de datos, proporcionando una visión más detallada sobre la gestión de tareas dentro del sistema.
+El laboratorio 5 permitió la automatización del desarrollo y despliegue mediante un pipeline CI/CD completo, mejorando la eficiencia del flujo de trabajo de integración y entrega. En el laboratorio 8, se reforzó la seguridad del sistema mediante la implementación de autenticación con Spring Security y la protección de las comunicaciones con certificados SSL. Estas mejoras garantizan tanto la disponibilidad como la seguridad de la aplicación desplegada.
