@@ -1,4 +1,4 @@
-# Proyecto de Administración de Tareas - Laboratorio 5 (CI/CD)
+# Proyecto de Administración de Tareas
 
 ## Descripción General
 
@@ -73,8 +73,7 @@ Se desarrolló una nueva página "Analítica" con varias gráficas que muestran 
 
 ## Entrega Final
 
-- **URL de la aplicación desplegada en Azure**: [App en Azure](#) (enlace al despliegue).
-- **Repositorio GitHub con CI/CD configurado**: [Repositorio GitHub](#) (enlace al repositorio).
+- **URL de la aplicación desplegada en Azure**: [App en Azure](#) (https://dev.azure.com/paulapaez/_git/TaskManager).
 - **Plan de tareas en Azure DevOps**: Actualización del plan con las nuevas tareas y ajustes.
 
 ## Conclusiones
